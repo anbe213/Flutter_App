@@ -1,36 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chess_board/flutter_chess_board.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Hello World Demo Application',
-      theme: ThemeData(
+    return new MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Home page'),
+      home: new MyHomePage(),
     );
   }
 }
-class MyHomePage extends StatelessWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
 
+class MyHomePage extends StatefulWidget{
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(this.title),
+        title: Text("Chess"),
       ),
       body: Center(
-          child:
-          Text(
-            'Hello World',
-          )
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ChessBoard(
+                onMove: (move) {
+                  print(move);
+                },
+                onCheckMate: (color) {
+                  print(color);
+                },
+                onDraw: () {},
+              size: MediaQuery.of(context).size.width,
+              enableUserMoves: true,
+              boardType: BoardType.orange,
+            )
+          ],
+        ),
       ),
     );
   }
 }
+
